@@ -1,0 +1,35 @@
+<mat-accordion [multi]="true">
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                {{getMessageName(log)}}
+            </mat-panel-title>
+            <mat-panel-description>
+                {{getMessageTagValue(log)}}
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <div style="font-size:13px;">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Tag</th>
+                        <th>Field</th>
+                        <th>Value</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let fixField of log.fixMessage.fixFields"
+                        [class]="selectRowStyleClass(fixField)" (click)="onRowClick(fixField)"
+                        style="cursor:pointer;">
+                        <td>{{fixField.tag}}</td>
+                        <td>{{fixField.name}}</td>
+                        <td>{{fixField.value}}</td>
+                        <td>{{fixField.valueName}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </mat-expansion-panel>
+</mat-accordion>
