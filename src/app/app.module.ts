@@ -39,12 +39,17 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTreeModule } from '@angular/material/tree';
+import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FixMessageContainerComponent } from './components/fix-message-container/fix-message-container.component';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    FixMessageAccordionComponent
+    FixMessageAccordionComponent,
+    FixMessageContainerComponent
   ],
   imports: [
     BrowserModule,
@@ -84,6 +89,9 @@ import { MatTreeModule } from '@angular/material/tree';
     MatToolbarModule,
     MatTooltipModule,
     MatTreeModule,
+    HttpClientModule,
+    BrowserAnimationsModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

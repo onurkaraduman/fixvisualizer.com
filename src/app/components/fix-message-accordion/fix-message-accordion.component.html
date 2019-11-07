@@ -1,11 +1,20 @@
+<div>
+    <button style="margin-left:90%;" type="button" (click)="onClickRowCopy(fixMessage.messageString)"
+        class="btn btn-light">Copy</button>
+</div>
+<div [class]="selectMessageHeaderStyleClass()">
+    <div>{{fixMessage.direction}}</div>
+    <div class="sessionInfo">{{getSessionInfo()}}</div>
+</div>
+
 <mat-accordion [multi]="true">
     <mat-expansion-panel>
         <mat-expansion-panel-header>
             <mat-panel-title>
-                {{getMessageName(log)}}
+                {{getMessageName()}}
             </mat-panel-title>
             <mat-panel-description>
-                {{getMessageTagValue(log)}}
+                {{getMessageTagValue()}}
             </mat-panel-description>
         </mat-expansion-panel-header>
 
@@ -20,9 +29,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let fixField of log.fixMessage.fixFields"
-                        [class]="selectRowStyleClass(fixField)" (click)="onRowClick(fixField)"
-                        style="cursor:pointer;">
+                    <tr *ngFor="let fixField of fixMessage.fixFields" [class]="selectRowStyleClass(fixField)"
+                        (click)="onRowClick(fixField)" style="cursor:pointer;">
                         <td>{{fixField.tag}}</td>
                         <td>{{fixField.name}}</td>
                         <td>{{fixField.value}}</td>

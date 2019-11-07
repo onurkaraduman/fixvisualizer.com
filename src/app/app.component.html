@@ -1,4 +1,6 @@
 <div class="form-group">
   <label for="comment">Fix Message:</label>
-  <textarea class="form-control" rows="5" id="comment" name="text"></textarea>
+  <textarea class="form-control" rows="5" id="comment" name="text" [(ngModel)]="fixMessageString"></textarea>
+  <app-fix-message-container [ready]="ready" [dataDictionary]="dataDictionary" [fixMessagesString]="fixMessageString">
+  </app-fix-message-container>
 </div>
