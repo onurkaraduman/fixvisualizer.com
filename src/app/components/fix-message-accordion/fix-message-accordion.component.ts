@@ -1,6 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChildren, QueryList } from '@angular/core';
 import { DataDictionary } from 'src/app/service/fix-message-parser/data-dictionary';
 import { FixMessage, FixField } from 'src/app/service/fix-message-parser/fix-message-parser.service';
+import { MatAccordion } from '@angular/material/expansion';
 
 @Component({
   selector: 'app-fix-message-accordion',
@@ -18,16 +19,34 @@ export class FixMessageAccordionComponent implements OnInit {
   @Input()
   fixMessage: FixMessage;
 
+  @ViewChildren(MatAccordion) accordions !: QueryList<MatAccordion>;
+
   constructor() { }
 
   ngOnInit() {
   }
 
+  collapse() {
+    this.accordions.forEach(a => {
+      a.closeAll();
+    })
+  }
+
+  expand() {
+    this.accordions.forEach(a => {
+      a.openAll();
+    })
+  }
+
+  onClickRowCopy(rawMessage: string) {
+    this.copytoClipboard(rawMessage);
+  }
+
   selectRowStyleClass(fixField: FixField) {
-    if (fixField.tag in this.headerMessageTags) {
+    if (this.headerMessageTags.includes(fixField.tag)) {
       return "fixMessageHeader";
     }
-    else if (fixField.tag in this.trailerMessageTags) {
+    else if (this.trailerMessageTags.includes(fixField.tag)) {
       return "fixMessageTrailer";
     }
   }
@@ -55,5 +74,19 @@ export class FixMessageAccordionComponent implements OnInit {
   getMessageTagValue() {
     let messageType = this.fixMessage.fixFields.filter(f => f.tag == 35)[0];
     return messageType.tag + "=" + messageType.value;
+  }
+
+  copytoClipboard(text: string) {
+    let textarea = document.createElement("textarea");
+    textarea.style.height = "0px";
+    textarea.style.left = "-100px";
+    textarea.style.opacity = "0";
+    textarea.style.position = "fixed";
+    textarea.style.top = "-100px";
+    textarea.style.width = "0px";
+    document.body.appendChild(textarea);
+    textarea.value = text;
+    textarea.select();
+    document.execCommand("copy");
   }
 }

@@ -76,16 +76,20 @@ export class FixMessageParserService {
     let fixFieldsTagValue = rawMessage.split(delimter);
     let fixFields: FixField[] = [];
     for (const fixFieldTagValue of fixFieldsTagValue) {
+      if (fixFieldTagValue == "") {
+        continue;
+      }
       let keyValue = fixFieldTagValue.split(this.KEY_VALUE_DELIMETER);
       let tag = Number(keyValue[0]);
       let value = keyValue[1];
       let fieldName = dataDictionary.getFieldName(tag);
+      let valueName = dataDictionary.getValueName(tag, value);
       let fixField: FixField = {
         tag: tag,
         value: value,
         name: fieldName,
         required: false,
-        valueName: "testValue"
+        valueName: valueName
       }
       fixFields.push(fixField);
     }

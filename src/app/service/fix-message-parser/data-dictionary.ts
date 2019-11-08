@@ -8,7 +8,7 @@ export class DataDictionary {
     dictionaryLoaded: boolean;
 
     constructor(public fixversion: FixVersion, public httpclient: HttpClient) {
-        
+
     }
 
     public async init() {
@@ -20,11 +20,29 @@ export class DataDictionary {
 
     urlBaseFixDictionary: string = "assets/fix/dictionary/";
 
-    public getFieldName(tag: number): string {
-        if (this.fields != undefined && this.fields != null) {
-            let filtered = this.fields.filter(f => f.tag === tag);
+    public getFieldName(tag: number) {
+        if (this.fields != null) {
+            let filtered = this.fields.filter(f => f.tag == tag);
             if (filtered != null) {
+                if (filtered[0] != null) {
+                    return filtered[0].name;
+                }
+            }
+        }
+    }
 
+    public getValueName(tag: number, value: string) {
+        if (this.fields != null) {
+            let filtered = this.fields.filter(f => f.tag == tag);
+            if (filtered != null) {
+                if (filtered[0] != null) {
+                    if (filtered[0].values.length > 0) {
+                        let filteredValue = filtered[0].values.filter(f => f.key == value);
+                        if (filteredValue != null) {
+                            return filteredValue[0].value;
+                        }
+                    }
+                }
             }
         }
     }
@@ -47,14 +65,31 @@ export class DataDictionary {
         let fixFields = fields[0].field;
 
         for (const fixField of fixFields) {
+            let keyValues = [];
+            if (fixField.hasOwnProperty("value")) {
+                keyValues = this.parseValues(fixField.value);
+            }
+
             returnResult.push({
-                name: fixField.name,
-                tag: fixField.number,
-                type: fixField.type,
-                values: null
+                name: fixField.$.name,
+                tag: fixField.$.number,
+                type: fixField.$.type,
+                values: keyValues
             });
         }
         return returnResult;
+    }
+
+    private parseValues(values: any) {
+        let keyValues = [];
+        for (const value of values) {
+            let keyValue: KeyValue = {
+                key: value.$.enum,
+                value: value.$.description
+            }
+            keyValues.push(keyValue);
+        }
+        return keyValues;
     }
 
     private getFullPathOfDictionary() {
@@ -66,7 +101,12 @@ export interface Field {
     type: string;
     tag: number;
     name: string;
-    values: Record<string, string>;
+    values: KeyValue[];
+}
+
+export interface KeyValue {
+    key: string;
+    value: string;
 }
 
 export enum FixVersion {

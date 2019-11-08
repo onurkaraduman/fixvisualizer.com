@@ -1,6 +1,8 @@
-import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges, QueryList, ViewChildren } from '@angular/core';
 import { FixMessage, FixMessageParserService } from 'src/app/service/fix-message-parser/fix-message-parser.service';
 import { DataDictionary } from 'src/app/service/fix-message-parser/data-dictionary';
+import { MatAccordion } from '@angular/material/expansion';
+import { FixMessageAccordionComponent } from '../fix-message-accordion/fix-message-accordion.component';
 
 @Component({
   selector: 'app-fix-message-container',
@@ -17,8 +19,8 @@ export class FixMessageContainerComponent implements OnInit {
   @Input()
   dataDictionary: DataDictionary;
 
-  @Input()
-  ready: boolean;
+
+  @ViewChildren(FixMessageAccordionComponent) accordions !: QueryList<FixMessageAccordionComponent>;
 
   constructor(private fixMessageParser: FixMessageParserService) { }
 
@@ -39,13 +41,44 @@ export class FixMessageContainerComponent implements OnInit {
       console.log("Fix messages have been updated");
       this.parseMessage()
     }
-    else if (changes.ready != undefined) {
-      this.parseMessage();
-    }
   }
-
 
   parseMessage() {
     this.fixMessages = this.fixMessageParser.parse(this.dataDictionary, this.fixMessagesString);
+  }
+
+  onClickCopyAll() {
+    let rawMessageList = [];
+    for (let fixMessage of this.fixMessages) {
+      rawMessageList.push(fixMessage.messageString);
+    }
+    this.copytoClipboard(rawMessageList.join("\n"));
+  }
+
+
+  onClickCollapseAll() {
+    this.accordions.forEach(a => {
+      a.collapse();
+    })
+  }
+
+  onClickExpandAll() {
+    this.accordions.forEach(a => {
+      a.expand();
+    })
+  }
+
+  copytoClipboard(text: string) {
+    let textarea = document.createElement("textarea");
+    textarea.style.height = "0px";
+    textarea.style.left = "-100px";
+    textarea.style.opacity = "0";
+    textarea.style.position = "fixed";
+    textarea.style.top = "-100px";
+    textarea.style.width = "0px";
+    document.body.appendChild(textarea);
+    textarea.value = text;
+    textarea.select();
+    document.execCommand("copy");
   }
 }

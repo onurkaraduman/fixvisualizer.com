@@ -14,7 +14,7 @@ export class AppComponent {
 
   dataDictionary: DataDictionary;
   defaultFixVersion: FixVersion = FixVersion.fix44;
-  ready: boolean;
+  ready: boolean = false;
 
   constructor(private httpclient: HttpClient) {
     this.init();
