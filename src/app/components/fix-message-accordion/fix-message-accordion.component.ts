@@ -15,6 +15,8 @@ export class FixMessageAccordionComponent implements OnInit {
   tagSenderCompId: number = 49;
   tagTargetCompId: number = 56;
 
+  onixBaseUrl: string = "https://www.onixs.biz/fix-dictionary";
+  onixRelativeUrlTpl: string = "/{fixVersion}/tagNum_{tag}.html";
 
   @Input()
   fixMessage: FixMessage;
@@ -24,6 +26,26 @@ export class FixMessageAccordionComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+  }
+
+  onRowClick(fixField: FixField) {
+    let defaultFixVersion = this.getOnixFixVersion(null);
+    let relativePath = this.onixRelativeUrlTpl.replace("{fixVersion}", defaultFixVersion).replace("{tag}", String(fixField.tag));
+    let fullPath = this.onixBaseUrl + relativePath;
+    window.open(fullPath, "_blank");
+  }
+
+
+  getOnixFixVersion(fixVersion: string) {
+    if (fixVersion === "FIX.4.2") {
+      return "4.2";
+    }
+    else if (fixVersion === "FIX.4.4") {
+      return "4.4";
+    }
+    else {
+      return "4.4";
+    }
   }
 
   collapse() {
