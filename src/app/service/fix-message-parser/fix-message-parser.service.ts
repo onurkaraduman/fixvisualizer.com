@@ -24,6 +24,9 @@ export class FixMessageParserService {
     let fixMessages: FixMessage[] = [];
     let messagesSplit = messages.split("\n");
     for (let message of messagesSplit) {
+      if (!message.includes(this.KEY_VALUE_DELIMETER)) {
+        continue;
+      }
       let delimeter = this.getDelimeter(message);
       let fixFields = this.getFixFields(message, delimeter, dataDictionary);
       let direction = this.findDirection(message);
