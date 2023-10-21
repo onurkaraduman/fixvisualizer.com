@@ -1,6 +1,6 @@
 #!/bin/bash
 npm install
-ng build --prod --base-href https://onurkaraduman.github.io/fixvisualizer.com/
+ng build --prod --base-href https://fixvisualizer.com/
 git status
 git checkout package-lock.json
 git checkout gh-pages
