@@ -25,9 +25,26 @@
   </div>
 </div>
 
-<div *ngIf="ready == true" class="form-group">
-  <label for="comment">Fix Message:</label>
-  <textarea class="form-control" rows="5" id="comment" name="text" [(ngModel)]="fixMessageString"></textarea>
-  <app-fix-message-container [dataDictionary]="dataDictionary" [fixMessagesString]="fixMessageString">
-  </app-fix-message-container>
+<div class="appcontainer">
+
+  <div>
+    <app-header></app-header>
+  </div>
+
+  <div *ngIf="ready == true" class="form-group appbackground">
+    <label class="pastefixmessage" for="comment">Paste Your Fix Message Below</label>
+    <div>
+      <button type="button" (click)="onClickSample()" class="sample">Sample</button>
+    </div>
+    <div>
+      <textarea class="fixmessagetextarea form-control" rows="5" id="comment" name="text"
+        [(ngModel)]="fixMessageString"></textarea>
+    </div>
+
+    <div class="appbackground">
+      <app-fix-message-container [dataDictionary]="dataDictionary" [fixMessagesString]="fixMessageString">
+      </app-fix-message-container>
+    </div>
+  </div>
+
 </div>

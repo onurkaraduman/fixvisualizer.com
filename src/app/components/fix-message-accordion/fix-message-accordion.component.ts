@@ -71,6 +71,9 @@ export class FixMessageAccordionComponent implements OnInit {
     else if (this.trailerMessageTags.includes(fixField.tag)) {
       return "fixMessageTrailer";
     }
+    else{
+      return "fixMessageBusiness"
+    }
   }
 
   selectMessageHeaderStyleClass() {
