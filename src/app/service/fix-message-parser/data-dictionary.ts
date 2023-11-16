@@ -38,7 +38,7 @@ export class DataDictionary {
                 if (filtered[0] != null) {
                     if (filtered[0].values.length > 0) {
                         let filteredValue = filtered[0].values.filter(f => f.key == value);
-                        if (filteredValue != null) {
+                        if (filteredValue != null && filteredValue.length > 0) {
                             return filteredValue[0].value;
                         }
                     }

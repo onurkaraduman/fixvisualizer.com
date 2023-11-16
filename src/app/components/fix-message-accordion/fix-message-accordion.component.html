@@ -1,43 +1,43 @@
 <div>
-    <button style="margin-left:90%;" type="button" (click)="onClickRowCopy(fixMessage.messageString)"
-        class="btn btn-light">Copy</button>
+  <button style="margin-left:90%;" type="button" (click)="onClickRowCopy(fixMessage.messageString)"
+    class="copybutton">Copy</button>
 </div>
 <div [class]="selectMessageHeaderStyleClass()">
-    <div>{{fixMessage.direction}}</div>
-    <div class="sessionInfo">{{getSessionInfo()}}</div>
+  <div>{{fixMessage.direction}}</div>
+  <div class="sessionInfo">{{getSessionInfo()}}</div>
 </div>
 
 <mat-accordion [multi]="true">
-    <mat-expansion-panel>
-        <mat-expansion-panel-header>
-            <mat-panel-title>
-                {{getMessageName()}}
-            </mat-panel-title>
-            <mat-panel-description>
-                {{getMessageTagValue()}}
-            </mat-panel-description>
-        </mat-expansion-panel-header>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title class="header">
+        {{getMessageName()}}
+      </mat-panel-title>
+      <mat-panel-description class="header">
+        {{getMessageTagValue()}}
+      </mat-panel-description>
+    </mat-expansion-panel-header>
 
-        <div style="font-size:13px;">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Tag</th>
-                        <th>Field</th>
-                        <th>Value</th>
-                        <th>Description</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let fixField of fixMessage.fixFields" [class]="selectRowStyleClass(fixField)"
-                        (click)="onRowClick(fixField)" style="cursor:pointer;">
-                        <td>{{fixField.tag}}</td>
-                        <td>{{fixField.name}}</td>
-                        <td>{{fixField.value}}</td>
-                        <td>{{fixField.valueName}}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </mat-expansion-panel>
+    <div style="font-size:13px;">
+      <table class="table">
+        <thead>
+          <tr class="header">
+            <th>Tag</th>
+            <th>Field</th>
+            <th>Value</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let fixField of fixMessage.fixFields" [class]="selectRowStyleClass(fixField)"
+            (click)="onRowClick(fixField)" style="cursor:pointer;">
+            <td>{{fixField.tag}}</td>
+            <td>{{fixField.name}}</td>
+            <td>{{fixField.value}}</td>
+            <td>{{fixField.valueName}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </mat-expansion-panel>
 </mat-accordion>
