@@ -10,7 +10,7 @@ import { HttpClient } from '@angular/common/http';
 export class AppComponent {
   title = 'fixed-angular';
 
-  fixMessageString: string = "outgoing: 8=FIX.4.2|9=130|35=AE|49=LSEHub|56=LSETR|115=BROKERX|34=2287|43=N|52=20120330-12:14:09|370=20120330-12:14:09.816|571=00008661533TRLO1-1-1-0|150=H|10=074|";
+  fixMessageString: string = "";
 
   dataDictionary: DataDictionary;
   defaultFixVersion: FixVersion = FixVersion.fix44;
@@ -24,5 +24,9 @@ export class AppComponent {
     this.dataDictionary = new DataDictionary(this.defaultFixVersion, this.httpclient);
     await this.dataDictionary.init();
     this.ready = true;
+  }
+
+  onClickSample() {
+    this.fixMessageString = "outgoing: 8=FIX.4.2|9=130|35=AE|49=LSEHub|56=LSETR|115=BROKERX|34=2287|43=N|52=20120330-12:14:09|370=20120330-12:14:09.816|571=00008661533TRLO1-1-1-0|150=H|10=074|\n incoming: 8=FIX.4.2|9=130|35=AE|49=LSEHub|56=LSETR|115=BROKERX|34=2287|43=N|52=20120330-12:14:09|370=20120330-12:14:09.816|571=00008661533TRLO1-1-1-0|150=H|10=074|";
   }
 }
