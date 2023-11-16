@@ -43,13 +43,15 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FixMessageContainerComponent } from './components/fix-message-container/fix-message-container.component';
 import { FormsModule } from '@angular/forms';
+import { HeaderComponent } from './components/header/header.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     FixMessageAccordionComponent,
-    FixMessageContainerComponent
+    FixMessageContainerComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,

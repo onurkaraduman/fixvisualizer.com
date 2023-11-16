@@ -1,11 +1,11 @@
 <div *ngIf="fixMessages != undefined && fixMessages.length > 0" class="messageContainer">
     <div>
-        <button type="button" (click)="onClickCopyAll()" class="btn btn-primary">Copy
+        <button type="button" (click)="onClickCopyAll()" class="operationbutton">Copy
             All</button>
 
-        <button type="button" (click)="onClickCollapseAll()" class="btn btn-primary">Collapse
+        <button type="button" (click)="onClickCollapseAll()" class="operationbutton">Collapse
             All (+)</button>
-        <button type="button" (click)="onClickExpandAll()" class="btn btn-primary">Expand
+        <button type="button" (click)="onClickExpandAll()" class="operationbutton">Expand
             All (-)</button>
     </div>
     <div *ngFor="let fixMessage of fixMessages" [class]="selectMessgeStyleClass(fixMessage)">
